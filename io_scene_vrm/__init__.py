@@ -381,7 +381,7 @@ class VRM_IMPORTER_PT_controller(bpy.types.Panel):  # type: ignore[misc] # noqa:
         # endregion draw_main
 
 
-class VRM_IMPORTER_PT_amature_controller(bpy.types.Panel):
+class VRM_IMPORTER_PT_amature_controller(bpy.types.Panel):  # type: ignore[misc] # noqa: N801
     bl_idname = "VRM_IMPORTER_PT_amature_controller"
     bl_label = "VRM Amature Helper"
     bl_space_type = "VIEW_3D"
@@ -397,19 +397,19 @@ class VRM_IMPORTER_PT_amature_controller(bpy.types.Panel):
         layout = self.layout
         data = active_object.data
 
-        def show_ui(parent, bone, icon):
+        def show_ui(parent: bpy.types.UILayout, bone: str, icon: str) -> None:
             parent.prop_search(
                 data, f'["{bone}"]', data, "bones", text=bone, icon=icon
             )
 
-        def show_add_require(parent, bone):
+        def show_add_require(parent: bpy.types.UILayout, bone: str) -> None:
             parent.operator(
                 vrm_helper.Add_VRM_require_humanbone_custom_property.bl_idname,
                 text=f"Add {bone} property",
                 icon="ADD",
             )
 
-        def show_add_defined(parent, bone):
+        def show_add_defined(parent: bpy.types.UILayout, bone: str) -> None:
             parent.operator(
                 vrm_helper.Add_VRM_defined_humanbone_custom_property.bl_idname,
                 text=f"Add {bone} property",
@@ -583,7 +583,7 @@ class WM_OT_licenseConfirmation(bpy.types.Operator):  # type: ignore[misc] # noq
         )
 
 
-class VRM_IMPORTER_PT_vrm_humanoid_params(bpy.types.Panel):
+class VRM_IMPORTER_PT_vrm_humanoid_params(bpy.types.Panel):  # type: ignore[misc] # noqa: N801
     bl_idname = "VRM_IMPORTER_PT_vrm_humanoid_params"
     bl_label = "VRM Humanoid Params"
     bl_space_type = "PROPERTIES"
@@ -592,12 +592,12 @@ class VRM_IMPORTER_PT_vrm_humanoid_params(bpy.types.Panel):
     bl_options = {'DEFAULT_CLOSED'}
 
     @classmethod
-    def poll(cls, context):
+    def poll(cls, context: bpy.types.Context) -> bool:
         exist = context.object is not None
         armature = context.object.type == "ARMATURE"
         return exist and armature
 
-    def draw_header(self, context):
+    def draw_header(self, context: bpy.types.Context) -> None:
         layout = self.layout
         layout.label(icon="ARMATURE_DATA")
 
@@ -645,7 +645,7 @@ class VRM_IMPORTER_PT_vrm_humanoid_params(bpy.types.Panel):
         )
 
 
-class VRM_IMPORTER_PT_vrm_firstPerson_params(bpy.types.Panel):
+class VRM_IMPORTER_PT_vrm_firstPerson_params(bpy.types.Panel):  # type: ignore[misc] # noqa: N801
     bl_idname = "VRM_IMPORTER_PT_vrm_firstPerson_params"
     bl_label = "VRM FirstPerson Params"
     bl_space_type = "PROPERTIES"
